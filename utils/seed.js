@@ -1,5 +1,5 @@
 const connection = require('../config/connection');
-const { User } = require('../models/User');
+const { User } = require('../models');
 
 const userSeed = [
 
@@ -20,4 +20,5 @@ const userSeed = [
 connection.once('open', async() =>{
     await User.deleteMany()
     await User.collection.insertMany(userSeed)
+    process.exit()
 })
