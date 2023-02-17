@@ -20,14 +20,13 @@ module.exports = {
   },
   createUser(req, res) {
     User.create(req.body)
-    .then((user) => {
-        return user.findOneAndUpdate(
-      { username: req.body.username },
-      { $addToSet: { user: user._id } },
-      { new: true }
-    );
-  })
-      .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
+      .then((user) => {
+        res.json(user);
+      })
+      
+      .catch ((err) => {
+        console.error({ message: err });
+        return res.status(500).json(err);
+      })
   },
 };
