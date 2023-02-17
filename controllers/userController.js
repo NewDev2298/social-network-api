@@ -57,12 +57,3 @@ module.exports = {
  
 }
     
-    // createUser(req, res) {
-    //   User.create(req.body)
-    //   .then((user) => {
-    //       return user.findOneAndUpdate(
-    //     { username: req.body.username },
-    //     { $addToSet: { user: user._id } },
-    //     { new: true }
-    //   );
-    // })
