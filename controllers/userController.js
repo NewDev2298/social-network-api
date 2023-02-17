@@ -10,8 +10,8 @@ module.exports = {
       });
     },
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.postId })
-      .then((user) =>
+    User.findOne({ _id: req.params.userId })
+      .then((user) => 
         !User
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json(user)
@@ -22,19 +22,11 @@ module.exports = {
     User.create(req.body)
     .then((user) => {
         return user.findOneAndUpdate(
-            {
-                username: req.body.username,
-            },
-            {
-                $addToSet: {
-                    user: user._id
-                }
-            },
-            {
-                new: true
-            }
-        )
-    })
+      { username: req.body.username },
+      { $addToSet: { user: user._id } },
+      { new: true }
+    );
+  })
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
