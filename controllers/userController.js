@@ -1,28 +1,26 @@
-const { Thought } = require('../models/Thought');
+const { User } = require('../models/User');
 
 module.exports = {
-  getThoughts(req, res) {
-    Thought.find()
-      .populate({ path: 'tags', select: '-__v' })
-      .then((thoughts) => res.json(thoughts))
+  getUsers(req, res) {
+    User.find()
+      .then((users) => res.json(users))
       .catch((err) => {
         console.error({ message: err });
         return res.status(500).json(err);
       });
     },
-  getSingleThought(req, res) {
-    Thought.findOne({ _id: req.params.postId })
-      .populate({ path: 'tags', select: '-__v' })
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({ message: 'No post with that ID' })
-          : res.json(thought)
+  getSingleUser(req, res) {
+    User.findOne({ _id: req.params.postId })
+      .then((user) =>
+        !User
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
-  createThought(req, res) {
-    Thought.create(req.body)
-      .then((thought) => res.json(thought))
+  createUser(req, res) {
+    User.create(req.body)
+      .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
 };
